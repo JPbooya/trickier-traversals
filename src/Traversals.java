@@ -49,7 +49,9 @@ public class Traversals {
    * @return a post-order traversal string, or an empty string if the tree is null
    */
   public static <T> String buildPostOrderString(TreeNode<T> node) {
-    return null;
+    if(node == null) return "";
+
+    return buildPostOrderString(node.left) + buildPostOrderString(node.right) + node.value.toString();
   }
 
   /**
@@ -61,8 +63,28 @@ public class Traversals {
    * @return a list of node values in a top-to-bottom order, or an empty list if the tree is null
    */
   public static <T> List<T> collectLevelOrderValues(TreeNode<T> node) {
-    return null;
+    if(node == null) return new ArrayList<>();
+    Queue<TreeNode<T>> queue = new LinkedList<>();
+    List<T> result = new ArrayList<>();
+    
+    queue.add(node);
+    while(!queue.isEmpty()) {
+      TreeNode<T> current = queue.poll();
+      result.add(current.value);
+
+      if(current.left != null) {
+        queue.add(current.left);
+      } 
+
+      if(current.right != null ){
+        queue.add(current.right);
+      }
+    }
+
+    return result;
   }
+
+
 
   /**
    * Counts the distinct values in the given tree.
